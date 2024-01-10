@@ -1,12 +1,12 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using System;
 
 public class GameController : MonoBehaviour
 {
     public Restart restart;
     public List<PlayerController> players = new List<PlayerController>();
+    [SerializeField] private int currentLevel = 1; 
 
     private PlayerController GetPlayer(PlayerTypes type)
     {
@@ -22,6 +22,7 @@ public class GameController : MonoBehaviour
     private void Start()
     {
         ScoreManager.instance.Init(this);
+        MusicManager.instance.PlayLevelMusic(currentLevel); // відтворення музики при запуску гри.
     }
     public void PlayerDestroy(PlayerTypes type)
     {
@@ -46,6 +47,14 @@ public class GameController : MonoBehaviour
         else
         {
             Debug.LogWarning("No more levels available!");
+        }
+    }
+    
+    public void PlayersActive()
+    {
+        for(int i = 0; i < players.Count; i++)
+        {
+            players[i].isActive = true;
         }
     }
 }

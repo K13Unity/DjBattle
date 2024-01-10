@@ -15,6 +15,8 @@ public class PlayerController : MonoBehaviour
     public int currentBulletCount = 3;
     Vector3 movement;
     public PlayerTypes type;
+    public bool isActive = false;
+    public Trembling trembling;
 
     private void Start()
     {
@@ -30,10 +32,8 @@ public class PlayerController : MonoBehaviour
 
     private void Update()
     {
-        if (isMain == false)
-        {
-            return;
-        }
+        if (!isActive) return;
+        if (isMain == false) return;
 
         movement.x = Input.GetAxisRaw("Horizontal");
         movement.y = Input.GetAxisRaw("Vertical");
@@ -95,7 +95,7 @@ public class PlayerController : MonoBehaviour
 
             if (currentBulletCount < maxBullets)
             {
-                yield return new WaitForSeconds(1f);
+                yield return new WaitForSeconds(1.5f);
                 currentBulletCount++;
                 arrowController.ReloadArrows();
             }
@@ -104,6 +104,7 @@ public class PlayerController : MonoBehaviour
 
     public void TakeDamage(int score)
     {
+        trembling.StartShake();
         scoreManager.UpdateScoreText(score);
     }
 }
