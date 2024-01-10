@@ -1,16 +1,14 @@
-using System.Collections;
 using UnityEngine;
 
 public class Bullet : MonoBehaviour
 {
-    private int _maxNumber = 3;
-    private int _number;
+    private int _maxTouchCount = 3;
+    private int _touchCounter;
     private Vector3 _direction;
     public float speed = 3.0f;
     private PlayerController _parent;
     public ParticleSystem partPrefab;
-    private ParticleSystem partInstance;
-
+    private float _particleLifeTime = 4f;
     void Update()
     {
         if (_direction == Vector3.zero)
@@ -38,10 +36,9 @@ public class Bullet : MonoBehaviour
 
     bool CheckCollision(Vector3 start, Vector3 end, out Vector3 hitPoint, out Vector3 normal)
     {
-        RaycastHit hit;
-        if (Physics.Raycast(start, end - start, out hit, (end - start).magnitude))
+        if (Physics.Raycast(start, end - start, out var hit, (end - start).magnitude))
         {
-            if (hit.collider.CompareTag("Player")) // Перевіряємо тег гравця
+            if (hit.collider.CompareTag("Player")) 
             {
                 OnPlayerHit(hit.collider.GetComponent<PlayerController>());
             }
@@ -59,13 +56,14 @@ public class Bullet : MonoBehaviour
     {
         if (player != null && _parent != player)
         {
-            if (_parent.type == PlayerTypes.RIGHT)
+            
+            if (_parent.Type == PlayerTypes.RIGHT)
             {
-                player.TakeDamage(1);
+                player.TakeHit(1);
             }
             else
             {
-                player.TakeDamage(-1);
+                player.TakeHit(-1);
             }
             PartInstantiate();
             Destroy(gameObject);
@@ -75,14 +73,14 @@ public class Bullet : MonoBehaviour
     void HandleCollision(Vector3 normal, Vector3 hitPoint)
     {
         _direction = Vector3.Reflect(_direction, normal);
-        TouchCounter();
-        transform.position = hitPoint + _direction * 0.02f; // Невелике зміщення для уникнення проникнення
+        IncreaseTouchCount();
+        transform.position = hitPoint + _direction * 0.02f; 
     }
 
-    void TouchCounter()
+    void IncreaseTouchCount()
     {
-        _number++;
-        if (_number >= _maxNumber)
+        _touchCounter++;
+        if (_touchCounter >= _maxTouchCount)
         {
             PartInstantiate();
             Destroy(gameObject);
@@ -91,9 +89,9 @@ public class Bullet : MonoBehaviour
 
     void PartInstantiate()
     {
-        partInstance = Instantiate(partPrefab, transform.position, Quaternion.identity);
+        var partInstance = Instantiate(partPrefab, transform.position, Quaternion.identity);
         partInstance.Play();
-        Destroy(partInstance.gameObject, 4f);
+        Destroy(partInstance.gameObject, _particleLifeTime);
     }
 }
 

@@ -6,6 +6,7 @@ public class StartRaund : MonoBehaviour
     [SerializeField] GameController controller;
     [SerializeField] GameObject video;
     [SerializeField] private AudioSource audioSource;
+
     private void Start()
     {
         StartCoroutine(Countdown());
@@ -19,6 +20,6 @@ public class StartRaund : MonoBehaviour
         yield return new WaitForSeconds(0.8f);
         video.SetActive(false);
         
-        controller.PlayersActive();
+        controller.ActivatePlayers();
     }
 }

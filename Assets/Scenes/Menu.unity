@@ -633,7 +633,6 @@ GameObject:
   m_Component:
   - component: {fileID: 400482268}
   - component: {fileID: 400482270}
-  - component: {fileID: 400482271}
   m_Layer: 5
   m_Name: Slider
   m_TagString: Untagged
@@ -714,33 +713,7 @@ MonoBehaviour:
   m_Value: 0.5
   m_OnValueChanged:
     m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 0}
-        m_TargetAssemblyTypeName: AudioController, Assembly-CSharp
-        m_MethodName: SliderMusic
-        m_Mode: 1
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
---- !u!114 &400482271
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 400482267}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 3f586587cab5d6747bbe62c7f5cecd41, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  slider: {fileID: 400482270}
-  oldVolume: 0.5
+      m_Calls: []
 --- !u!1 &410879539
 GameObject:
   m_ObjectHideFlags: 0
@@ -1345,6 +1318,7 @@ GameObject:
   - component: {fileID: 1120804531}
   - component: {fileID: 1120804533}
   - component: {fileID: 1120804532}
+  - component: {fileID: 1120804534}
   m_Layer: 5
   m_Name: Setting Panel
   m_TagString: Untagged
@@ -1412,6 +1386,20 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1120804530}
   m_CullTransparentMesh: 1
+--- !u!114 &1120804534
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1120804530}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3f586587cab5d6747bbe62c7f5cecd41, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  controller: {fileID: 1649247216}
+  slider: {fileID: 400482270}
 --- !u!1 &1134632941
 GameObject:
   m_ObjectHideFlags: 0
@@ -1672,7 +1660,6 @@ GameObject:
   - component: {fileID: 1649247211}
   - component: {fileID: 1649247214}
   - component: {fileID: 1649247213}
-  - component: {fileID: 1649247215}
   - component: {fileID: 1649247216}
   m_Layer: 5
   m_Name: Image
@@ -1848,19 +1835,6 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
---- !u!114 &1649247215
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1649247209}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 22d4ad42187beca4997fad74a2f8c341, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  isPlaying: 0
 --- !u!114 &1649247216
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1874,6 +1848,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   audioSources:
+  - {fileID: 1649247214}
   - {fileID: 1649247214}
 --- !u!1660057539 &9223372036854775807
 SceneRoots:

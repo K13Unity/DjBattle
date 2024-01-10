@@ -5,29 +5,24 @@ public class PlayerController : MonoBehaviour
 {
     public bool isMain = true;
     [SerializeField] private float moveSpeed = 2f;
-    public Transform bulletSpawnPoint;
-    public Rigidbody rb;
-    public Bullet bulletPrefab;
-    public ArrowController arrowController; // Призначте це через інспектор
-    public ScoreManager scoreManager;
-    public new Camera camera;
-    public int maxBullets = 3;
-    public int currentBulletCount = 3;
+    [SerializeField] private Transform bulletSpawnPoint;
+    [SerializeField] private Rigidbody rb;
+    [SerializeField] private Bullet bulletPrefab;
+    [SerializeField] private ArrowController arrowController; 
+    [SerializeField] private Camera camera;
+    [SerializeField] private int maxBullets = 3;
+    [SerializeField] private int currentBulletCount = 3;
     Vector3 movement;
-    public PlayerTypes type;
-    public bool isActive = false;
-    public Trembling trembling;
-
-    private void Start()
+    [SerializeField] private PlayerTypes type;
+    public PlayerTypes Type => type;
+    private bool isActive = false;
+    [SerializeField] private Trembling trembling;
+    [SerializeField] private float spawnBulletDelay = 1.5f;
+    
+    public void SetActive(bool active)
     {
+        isActive = active;
         StartCoroutine(SpawnBulletsRoutine());
-        arrowController.AssignPlayer(this);
-        scoreManager = FindObjectOfType<ScoreManager>();
-
-        if (scoreManager == null)
-        {
-            Debug.LogError("ScoreManager not found in the scene.");
-        }
     }
 
     private void Update()
@@ -42,20 +37,15 @@ public class PlayerController : MonoBehaviour
         if (currentBulletCount > 0 && Input.GetMouseButtonDown(0))
         {
             Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
-            RaycastHit hitInfo;
 
-            if (Physics.Raycast(ray, out hitInfo))
+            if (Physics.Raycast(ray, out var hitInfo))
             {
                 Bullet bullet = Instantiate(bulletPrefab, bulletSpawnPoint.position, Quaternion.identity);
                 Vector3 targetPosition = hitInfo.point;
                 Vector3 direction = (targetPosition - bullet.transform.position).normalized;
                 bullet.Init(direction, this);
                 currentBulletCount--;
-
-                if (arrowController != null)
-                {
-                    arrowController.BulletFired();
-                }
+                arrowController.BulletFired();
             }
         }
     }
@@ -81,11 +71,6 @@ public class PlayerController : MonoBehaviour
         }
     }
 
-    public void GetPlayerAndMousePosition(out Vector3 playerPos, out Vector3 mousePos)
-    {
-        playerPos = transform.position;
-        mousePos = camera.ScreenToWorldPoint(Input.mousePosition);
-    }
 
     private IEnumerator SpawnBulletsRoutine()
     {
@@ -95,17 +80,17 @@ public class PlayerController : MonoBehaviour
 
             if (currentBulletCount < maxBullets)
             {
-                yield return new WaitForSeconds(1.5f);
+                yield return new WaitForSeconds(spawnBulletDelay);
                 currentBulletCount++;
                 arrowController.ReloadArrows();
             }
         }
     }
 
-    public void TakeDamage(int score)
+    public void TakeHit(int score)
     {
         trembling.StartShake();
-        scoreManager.UpdateScoreText(score);
+        ScoreManager.instance.UpdateScoreText(score);
     }
 }
 

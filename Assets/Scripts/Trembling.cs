@@ -2,9 +2,9 @@ using UnityEngine;
 
 public class Trembling : MonoBehaviour
 {
-    public Transform _camera;
-    public float offsetX = 0.2f;
-    public float offsetZ = 0.2f;
+    [SerializeField] private Transform _camera;
+    [SerializeField] private float offsetX = 0.2f;
+    [SerializeField] private float offsetZ = 0.2f;
 
     private bool isShaking = false;
     private float shakeDuration = 0.6f;

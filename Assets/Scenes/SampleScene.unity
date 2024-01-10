@@ -1616,13 +1616,12 @@ MonoBehaviour:
   rb: {fileID: 122880952}
   bulletPrefab: {fileID: 8982114323973312269, guid: 0d785ec80d0bddc4698d1404726304c1, type: 3}
   arrowController: {fileID: 1862805318}
-  scoreManager: {fileID: 1139006232}
   camera: {fileID: 963194227}
   maxBullets: 3
   currentBulletCount: 3
-  type: 0
-  isActive: 0
+  type: -1
   trembling: {fileID: 963194230}
+  spawnBulletDelay: 1.5
 --- !u!54 &122880952
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -4063,7 +4062,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: dd08c258bf7550146893a1f523f1cd6a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  restart: {fileID: 471496549}
   players:
   - {fileID: 122880951}
   - {fileID: 889380656}
@@ -4277,50 +4275,6 @@ Transform:
   m_ConstrainProportionsScale: 1
   m_Children: []
   m_Father: {fileID: 1519186981}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!1 &471496548
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 471496550}
-  - component: {fileID: 471496549}
-  m_Layer: 0
-  m_Name: RestartLevel
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!114 &471496549
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 471496548}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ddc10a2df01eb8940b419cb6a2a2ddc3, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
---- !u!4 &471496550
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 471496548}
-  serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 3.1011753, y: -0.3521787, z: 0.34282357}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &481732175
 GameObject:
@@ -8803,13 +8757,12 @@ MonoBehaviour:
   rb: {fileID: 889380657}
   bulletPrefab: {fileID: 8982114323973312269, guid: 6b1b41e42322cbb4aa879d119646e1e0, type: 3}
   arrowController: {fileID: 432255065}
-  scoreManager: {fileID: 1139006232}
   camera: {fileID: 963194227}
   maxBullets: 3
   currentBulletCount: 3
   type: 1
-  isActive: 0
   trembling: {fileID: 963194230}
+  spawnBulletDelay: 1.5
 --- !u!54 &889380657
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -11843,8 +11796,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   slider: {fileID: 785659180}
   winImage: {fileID: 1204707353}
-  win1: {fileID: 253839160}
-  win2: {fileID: 724627097}
+  leftPlayerScore: {fileID: 253839160}
+  rightPlaterScore: {fileID: 724627097}
 --- !u!1 &1141292081
 GameObject:
   m_ObjectHideFlags: 0
@@ -22172,7 +22125,6 @@ SceneRoots:
   - {fileID: 2100157189}
   - {fileID: 682297648}
   - {fileID: 436079649}
-  - {fileID: 471496550}
   - {fileID: 6373989441139780354}
   - {fileID: 1139006231}
   - {fileID: 5738737661393339625}

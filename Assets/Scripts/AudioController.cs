@@ -7,31 +7,15 @@ public class AudioController : MonoBehaviour
 
     private void Start()
     {
-        SetVolumeForAllSources(0.5f); // Встановлюємо початковий об'єм для всіх аудіоджерел
+        float volume = PlayerPrefs.GetFloat("Volume", 0.5f);
+        SetVolumeForAllSources(volume); 
     }
 
-    private void Update()
+    public void SetVolumeForAllSources(float volume)
     {
-        float volume = PlayerPrefs.GetFloat("Volume");
-        SetVolumeForAllSources(volume); // Встановлюємо об'єм для всіх аудіоджерел згідно зі значенням в PlayerPrefs
-    }
-
-    private void SetVolumeForAllSources(float volume)
-    {
+        foreach (AudioSource audioSource in audioSources)
         {
-            AudioSource[] audioSources = GetComponents<AudioSource>();
-            foreach (AudioSource audioSource in audioSources)
-            {
-                if (audioSource != null)
-                {
-                    audioSource.volume = volume;
-                }
-                else
-                {
-                    Debug.LogWarning("One of the AudioSource components is null.");
-                }
-            }
+            audioSource.volume = volume;
         }
-
     }
 }

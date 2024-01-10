@@ -20,7 +20,7 @@ public class MenuManager : MonoBehaviour
     }
     public void PlayGame()
     {
-        _start.onClick.RemoveListener(PlayGame); // забираємо слухача з кнопки старт
+        _start.onClick.RemoveListener(PlayGame); 
         _settting.onClick.RemoveListener(Setting);
         _exit.onClick.RemoveListener(ExitGame);
         _back.onClick.RemoveListener(Back);

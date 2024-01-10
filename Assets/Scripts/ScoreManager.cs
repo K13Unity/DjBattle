@@ -8,15 +8,16 @@ public class ScoreManager : MonoBehaviour
     
     [SerializeField] SliderController slider;
     [SerializeField] Image winImage;
-    [SerializeField] private Text win1;
-    [SerializeField] private Text win2;
-    private int _win1Count;
-    private int _win2Count;
-    private int score = 6;
-    private bool canTriggerWinEvents = true;
+    [SerializeField] private Text leftPlayerScore;
+    [SerializeField] private Text rightPlayerScore;
+    private int leftPlayerWinCount;
+    private int rightPlayerWinCount;
+    private int curentScore = 6;
     private GameController _gameController;
-    private int _currentWin1Count;
-    private int _currentWin2Count;
+    private int _currentLeftPlayerWinCount;
+    private int _currentRightPlayerWinCount;
+    [SerializeField] float winAnimationDelay = 3.0f;
+
     private void Awake()
     {
         if (instance == null)
@@ -29,65 +30,61 @@ public class ScoreManager : MonoBehaviour
             Destroy(gameObject);
         }
     }
-    public int GetScore()
-    {
-        return score;
-    }
 
     public void UpdateScoreText(int value)
     {
-        score += value;
-        slider.value = score;
+        curentScore += value;
+        slider.value = curentScore;
 
-        if (slider.value <= 0 && canTriggerWinEvents)
+        if (slider.value <= 0 )
         {
-            canTriggerWinEvents = false;
-            _win1Count++;
-            _currentWin1Count++;
-            win1.text = _win1Count.ToString();
+            leftPlayerWinCount++;
+            _currentLeftPlayerWinCount++;
+            leftPlayerScore.text = leftPlayerWinCount.ToString();
             StartCoroutine(PlayWin());
             StartCoroutine(CheckWinConditions());
             _gameController.PlayerDestroy(PlayerTypes.RIGHT);
         }
 
-        if (slider.value >= slider.maxValue && canTriggerWinEvents)
+        if (slider.value >= slider.maxValue)
         {
-            canTriggerWinEvents = false;
-            _win2Count++;
-            _currentWin2Count++;
-            win2.text = _win2Count.ToString();
+            rightPlayerWinCount++;
+            _currentRightPlayerWinCount++;
+            rightPlayerScore.text = rightPlayerWinCount.ToString();
             StartCoroutine(PlayWin());
             StartCoroutine(CheckWinConditions());
             _gameController.PlayerDestroy(PlayerTypes.LEFT);
         }
     }
-    public void Init(GameController controller)
+
+    public void SetGameController(GameController controller)
     {
         _gameController = controller;
     }
+
     private IEnumerator PlayWin()
     {
-        yield return new WaitForSeconds(3.0f);
+        yield return new WaitForSeconds(winAnimationDelay);
         winImage.gameObject.SetActive(true);
-        yield return new WaitForSeconds(3.0f);
-        canTriggerWinEvents = true;
+        yield return new WaitForSeconds(winAnimationDelay);
         winImage.gameObject.SetActive(false);
-        score = 6;
-        slider.value = score;
+        curentScore = 6;
+        slider.value = curentScore;
     }
+
     private IEnumerator CheckWinConditions()
     {
-        if (_currentWin1Count > 0 && _currentWin1Count %2 == 0)
+        if (_currentLeftPlayerWinCount > 0 && _currentLeftPlayerWinCount % 2 == 0)
         {
-            yield return new WaitForSeconds(3.0f);
+            yield return new WaitForSeconds(winAnimationDelay);
             _gameController.TransitionToNextLevel();
-            _currentWin1Count = 0;
+            _currentLeftPlayerWinCount = 0;
         }
-        else if (_currentWin2Count > 0 && _currentWin2Count %2 == 0)
+        else if (_currentRightPlayerWinCount > 0 && _currentRightPlayerWinCount % 2 == 0)
         {
-            yield return new WaitForSeconds(3.0f);
+            yield return new WaitForSeconds(winAnimationDelay);
             _gameController.TransitionToNextLevel();
-            _currentWin2Count = 0;
+            _currentRightPlayerWinCount = 0;
         }
 
     }

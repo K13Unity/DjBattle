@@ -30,9 +30,5 @@ public class MusicManager : MonoBehaviour
                 audioSource.clip = levelMusicList[lvlNumber - 1];
                 audioSource.Play();
             }
-            else
-            {
-                Debug.Log("Audio clip not assigned for current level: " + lvlNumber);
-            }
     }
 }

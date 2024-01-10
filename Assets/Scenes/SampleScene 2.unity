@@ -477,13 +477,12 @@ MonoBehaviour:
   rb: {fileID: 31084858}
   bulletPrefab: {fileID: 8987316431485492822}
   arrowController: {fileID: 153164806}
-  scoreManager: {fileID: 1139006232}
   camera: {fileID: 963194227}
   maxBullets: 3
   currentBulletCount: 3
   type: 1
-  isActive: 0
   trembling: {fileID: 963194230}
+  spawnBulletDelay: 1.5
 --- !u!54 &31084858
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -1778,13 +1777,12 @@ MonoBehaviour:
   rb: {fileID: 122880952}
   bulletPrefab: {fileID: 8987316431485492822}
   arrowController: {fileID: 1862805318}
-  scoreManager: {fileID: 1139006232}
   camera: {fileID: 963194227}
   maxBullets: 3
   currentBulletCount: 3
   type: 0
-  isActive: 0
   trembling: {fileID: 963194230}
+  spawnBulletDelay: 1.5
 --- !u!54 &122880952
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -4258,7 +4256,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: dd08c258bf7550146893a1f523f1cd6a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  restart: {fileID: 471496549}
   players:
   - {fileID: 122880951}
   - {fileID: 31084857}
@@ -11870,8 +11867,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   slider: {fileID: 785659180}
   winImage: {fileID: 1204707353}
-  win1: {fileID: 253839160}
-  win2: {fileID: 724627097}
+  leftPlayerScore: {fileID: 0}
+  rightPlayerScore: {fileID: 0}
+  winAnimationDelay: 3
 --- !u!1 &1141292081
 GameObject:
   m_ObjectHideFlags: 0
@@ -31868,7 +31866,7 @@ AudioSource:
   serializedVersion: 4
   OutputAudioMixerGroup: {fileID: 0}
   m_audioClip: {fileID: 8300000, guid: 8ef5baf5353b10e4f8e65570495534f9, type: 3}
-  m_PlayOnAwake: 1
+  m_PlayOnAwake: 0
   m_Volume: 0.7
   m_Pitch: 1
   Loop: 0
