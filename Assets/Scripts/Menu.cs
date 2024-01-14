@@ -24,7 +24,7 @@ public class MenuManager : MonoBehaviour
         _settting.onClick.RemoveListener(Setting);
         _exit.onClick.RemoveListener(ExitGame);
         _back.onClick.RemoveListener(Back);
-        SceneManager.LoadScene("SampleScene");
+        SceneManager.LoadScene("1");
     }
     public void ExitGame()
     {
